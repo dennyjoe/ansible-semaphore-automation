@@ -1,17 +1,19 @@
 ---
-- name: apt update
+- name: Update apt package cache
   apt:
     update_cache: yes
 
-- name: apt dist upgrade
+- name: Upgrade all packages
   apt:
     upgrade: dist
 
-- name: Check if reboot required
-  stat:
-    path: /var/run/reboot-required
-  register: reboot_required_file
+- name: Check if system needs a restart
+  command: "needs-restarting -r || true"
+  register: restart_needed
+  changed_when: false
 
-- name: Reboot if required
-  reboot:
-  when: reboot_required_file.stat.exists == true
+- name: Restart the machine if required
+  command: "reboot"
+  async: 0
+  poll: 0
+  when: restart_needed.stdout != "0"
