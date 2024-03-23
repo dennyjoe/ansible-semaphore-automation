@@ -2,12 +2,10 @@
 - name: apt update
   apt:
     update_cache: yes
-  sudo: yes
 
 - name: apt dist upgrade
   apt:
     upgrade: dist
-  sudo: yes
 
 - name: Check if reboot required
   stat:
@@ -18,4 +16,3 @@
 - name: Reboot if required
   reboot:
   when: reboot_required_file.stat.exists == true
-  sudo: yes
