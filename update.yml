@@ -1,4 +1,4 @@
 - hosts: site
-  become: yes
+  become: true
   roles:
   - update
