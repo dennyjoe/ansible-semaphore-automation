@@ -1,2 +1,2 @@
-- name: shutdown
-  command: /sbin/shutdown -h now
+- name: Unconditionally shut down the machine with all defaults
+  community.general.shutdown:
