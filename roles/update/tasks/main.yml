@@ -7,6 +7,10 @@
   apt:
     upgrade: dist
 
+- name: Remove dependencies that are no longer required
+  apt:
+    autoremove: yes    
+
 - name: Check if reboot required
   stat:
     path: /var/run/reboot-required
