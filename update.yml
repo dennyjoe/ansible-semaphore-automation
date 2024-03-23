@@ -1,3 +1,4 @@
 - hosts: site
+  sudo: yes
   roles:
   - update
