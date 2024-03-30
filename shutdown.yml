@@ -1,12 +1,16 @@
 - hosts: site
-  tasks:         
+  tasks:
     - name: load the variables
       include_vars:
         dir: vars
-        extensions: [yml]  
+        extensions: [yml]
 
     - include_role:
         name: shutdown_guests
 
     - include_role:
         name: shutdown_host
+
+    - name: Ping Health Check
+      ansible.builtin.uri:
+        url: "{{ xcpng.health_check_url }}"
