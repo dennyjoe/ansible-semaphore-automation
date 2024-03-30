@@ -1,0 +1,9 @@
+- name: Shutdown guest VM
+  community.general.xenserver_guest_powerstate:
+    hostname: "{{ xcpng.hostname }}"
+    username: "{{ xcpng.username }}"
+    password: "{{ xcpng.password }}"
+    uuid: "{{ item.uuid }}"
+    state: shutdown-guest
+  register: facts
+  with_items: "{{ guests }}"

@@ -1,3 +1,12 @@
 - hosts: site
-  roles:
-  - shutdown
+  tasks:         
+    - name: load the variables
+      include_vars:
+        dir: vars
+        extensions: [yml]  
+
+    - include_role:
+        name: shutdown_guests
+
+    - include_role:
+        name: shutdown_host
