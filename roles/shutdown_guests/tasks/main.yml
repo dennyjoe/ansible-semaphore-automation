@@ -7,3 +7,7 @@
     state: shutdown-guest
   register: facts
   with_items: "{{ guests }}"
+
+- name: Ping Health Check
+  ansible.builtin.uri:
+    url: "{{ xcpng.health_check_url }}"
