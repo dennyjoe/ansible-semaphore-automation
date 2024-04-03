@@ -1,22 +1,7 @@
 - hosts: site
-  tasks:
-    - name: load the variables
-      include_vars:
-        dir: vars
-        extensions: [yml]
-
-    - include_role:
-        name: backup_vm
-      vars:
-        vm_source: "/dev/disk/{{ item.disk_id }}"
-        vm_target: "{{ item.nfs_host }}:{{ item.vm_share }}"
-        vol_source: "{{ docker_volume_local }}"
-        vol_target: "{{ item.nfs_host }}:{{ docker_volume_share }}"
-        health_check_url: "{{ health_check_url }}"
-      with_items: "{{ virtual_machines }}"
-
-    - include_role:
-        name: shutdown_guests
-
-    - include_role:
-        name: shutdown_host
+  become: true
+  roles:
+  - stop_containers
+  - backup_vm
+  - backup_vol
+  - start_containers
