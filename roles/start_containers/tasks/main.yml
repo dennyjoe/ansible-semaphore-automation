@@ -1,6 +1,7 @@
 - name: List containers
   community.docker.docker_host_info:
     containers: true
+    containers_all: true
   register: result
 
 - name: Start containers
