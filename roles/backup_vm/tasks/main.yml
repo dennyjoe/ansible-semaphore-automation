@@ -37,6 +37,7 @@
       - "--exclude=swapfile"
       - "--exclude=lost+found"
       - "--exclude=.cache"
+  delegate_to: delegate.host
 
 - name: Unmount the nfs share
   ansible.posix.mount:
