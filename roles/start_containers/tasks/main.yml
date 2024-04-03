@@ -1,10 +1,10 @@
 - name: List containers
   community.docker.docker_host_info:
     containers: true
-  register: containers
+  register: result
 
 - name: Stop containers
   community.docker.docker_container:
     name: "{{ item.Id }}"
     state: started
-  loop: containers
+  loop: result.containers
