@@ -1,9 +1,4 @@
-- name: Get info on docker host and list containers
-  community.docker.docker_host_info:
-    containers: true
-  register: result
-
-- name: Print return information from the previous task
+- name: Backup Docker Volumes
   ansible.builtin.debug:
-    var: result
+    var: containers
     verbosity: 2  
