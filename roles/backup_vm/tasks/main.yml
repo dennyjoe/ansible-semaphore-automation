@@ -16,6 +16,18 @@
     state: mounted
     fstype: none
 
+- name: Mount the NFS share
+  ansible.posix.mount:
+    src: "{{ vm_target }}"
+    path: /mnt/backup
+    state: mounted
+    fstype: nfs
+
+- name: Unmount the nfs share
+  ansible.posix.mount:
+    path: /mnt/backup
+    state: unmounted
+
 - name: Unmount the disk volume
   ansible.posix.mount:
     path: /mnt/system
