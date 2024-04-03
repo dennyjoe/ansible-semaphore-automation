@@ -1,4 +1,4 @@
 - name: Backup Virtual Machine
   ansible.builtin.debug:
-    var: containers
+    var: result
     verbosity: 2  

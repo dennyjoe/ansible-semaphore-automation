@@ -1,10 +1,9 @@
-- name: List containers
+- name: Get info on docker host and list containers
   community.docker.docker_host_info:
     containers: true
   register: result
 
-- name: Stop containers
-  community.docker.docker_container:
-    name: "{{ item.Id }}"
-    state: stopped
-  loop: result.containers
+- name: Print return information from the previous task
+  ansible.builtin.debug:
+    var: result
+    verbosity: 2  

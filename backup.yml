@@ -4,4 +4,3 @@
   - stop_containers
   - backup_vm
   - backup_vol
-  - start_containers
