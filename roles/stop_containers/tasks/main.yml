@@ -5,6 +5,6 @@
 
 - name: Stop containers
   community.docker.docker_container:
-    name: "{{ containers.Id }}"
+    name: "{{ item.Id }}"
     state: stopped
   with_items: "{{ containers }}"
