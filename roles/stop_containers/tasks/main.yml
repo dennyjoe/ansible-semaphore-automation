@@ -7,4 +7,4 @@
   community.docker.docker_container:
     name: "{{ item.Id }}"
     state: stopped
-  loop: "{{ containers }}"
+  loop: containers
