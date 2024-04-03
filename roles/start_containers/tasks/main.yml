@@ -3,8 +3,8 @@
     containers: true
   register: result
 
-- name: Stop containers
+- name: Start containers
   community.docker.docker_container:
     name: "{{ item.Id }}"
     state: started
-  loop: result.containers
+  with_items: "{{ result.containers }}"
