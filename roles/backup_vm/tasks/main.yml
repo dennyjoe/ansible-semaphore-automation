@@ -23,6 +23,21 @@
     state: mounted
     fstype: nfs
 
+- name: Rsync to NFS Share
+  ansible.posix.synchronize:
+    src: /mnt/system/
+    dest: /mnt/backup
+    rsync_opts:
+      - "--exclude=/dev/*"
+      - "--exclude=/proc/*"
+      - "--exclude=/sys/*"
+      - "--exclude=/run/*"
+      - "--exclude=/mnt/*"
+      - "--exclude=/media/*"
+      - "--exclude=swapfile"
+      - "--exclude=lost+found"
+      - "--exclude=.cache"
+
 - name: Unmount the nfs share
   ansible.posix.mount:
     path: /mnt/backup
