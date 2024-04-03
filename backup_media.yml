@@ -1,0 +1,12 @@
+- hosts: site
+  tasks:
+    - include_role:
+        name: stop_containers
+
+    - include_role:
+        name: backup_vm
+      vars:
+        backup_dir: /mnt/backup-vm
+
+    - include_role:
+        name: start_containers
