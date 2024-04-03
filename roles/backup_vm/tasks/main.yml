@@ -1,3 +1,22 @@
-- name: Backup Virtual Machine
-  ansible.builtin.debug:
-    msg: Backup Virtual Machine
+- name: Create the backup directory
+  ansible.builtin.file:
+    path: /mnt/backup
+    state: directory
+
+- name: Create the system directory (for the disk volume)
+  ansible.builtin.file:
+    path: /mnt/system
+    state: directory
+
+- name: Mount the disk volume to the system directory
+  ansible.posix.mount:
+    path: "{{ vm_source }}"
+    src: /mnt/system
+    opts: bind
+    state: mounted
+    fstype: none
+
+- name: Unmount the disk volume
+  ansible.posix.mount:
+    path: /mnt/system
+    state: unmounted
