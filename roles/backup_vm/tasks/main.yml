@@ -10,7 +10,7 @@
 
 - name: Mount the disk volume to the system directory
   ansible.posix.mount:
-    source: "/dev/disk/by-id/{{ disk_id }}"
+    src: "/dev/disk/by-id/{{ disk_id }}"
     path: /mnt/system
     state: mounted
     fstype: ext4
