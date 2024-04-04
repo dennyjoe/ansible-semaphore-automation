@@ -3,18 +3,6 @@
     path: /mnt/backup-vm
     state: directory
 
-- name: Create the system directory (for the disk volume)
-  ansible.builtin.file:
-    path: /mnt/system
-    state: directory
-
-- name: Mount the disk volume to the system directory
-  ansible.posix.mount:
-    src: "/dev/disk/by-id/{{ disk_id }}"
-    path: /mnt/system
-    state: mounted
-    fstype: ext4
-
 - name: Mount the NFS share
   ansible.posix.mount:
     src: "{{ nfs_host }}:{{ vm_share }}"
@@ -24,14 +12,11 @@
 
 - name: Rsync to NFS Share
   ansible.posix.synchronize:
-    src: /mnt/system/
+    src: /
     dest: /mnt/backup-vm
-    archive: false
-    delete: true
-    recursive: true
-    owner: true
-    perms: true
+    compress: false
     rsync_opts:
+      - "--exclude=#snapshot"
       - "--exclude=/dev/*"
       - "--exclude=/proc/*"
       - "--exclude=/sys/*"
@@ -43,17 +28,12 @@
       - "--exclude=.cache"
   delegate_to: "{{ inventory_hostname }}"
 
-- name: Create a backup file marker
-  ansible.builtin.file:
-    path: "/mnt/backup-vm/backup_{{ ansible_date_time.date }}.txt"
-    state: touch
-
 - name: Unmount the nfs share
   ansible.posix.mount:
     path: /mnt/backup-vm
     state: unmounted
 
-- name: Unmount the disk volume
-  ansible.posix.mount:
-    path: /mnt/system
-    state: unmounted
+- name: Remove directory
+  ansible.builtin.file:
+    path: /mnt/backup-vm
+    state: abesent
