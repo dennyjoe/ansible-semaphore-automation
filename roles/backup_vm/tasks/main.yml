@@ -10,11 +10,10 @@
 
 - name: Mount the disk volume to the system directory
   ansible.posix.mount:
-    path: "{{ vm_source }}"
     src: /mnt/system
-    opts: bind
+    path: "{{ vm_source }}"
     state: mounted
-    fstype: none
+    fstype: ext4
 
 - name: Mount the NFS share
   ansible.posix.mount:
