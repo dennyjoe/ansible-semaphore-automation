@@ -5,7 +5,7 @@
 
 - name: Mount the NFS share
   ansible.posix.mount:
-    src: "{{ nfs_host }}:{{ vm_share }}"
+    src: "{{ nfs_host }}:{{ os_share }}"
     path: /mnt/backup-vm
     state: mounted
     fstype: nfs
