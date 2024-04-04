@@ -26,6 +26,11 @@
   ansible.posix.synchronize:
     src: /mnt/system/
     dest: /mnt/backup-vm
+    archive: false
+    delete: true
+    recursive: true
+    owner: true
+    perms: true
     rsync_opts:
       - "--exclude=/dev/*"
       - "--exclude=/proc/*"
