@@ -1,4 +1,3 @@
 - name: Ping Health Check
   ansible.builtin.uri:
     url: "{{ health_check_url }}"
-  delegate_to: localhost
