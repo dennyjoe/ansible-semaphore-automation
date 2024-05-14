@@ -1,5 +1,7 @@
 ---
 guests:
+  - name: Helper
+    uuid: 44150171-1d97-c668-935f-093846968881
   - name: Athena
     uuid: bc98be53-c7b8-1045-e580-e500095964a2
   - name: Lethe
