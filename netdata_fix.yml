@@ -1,0 +1,6 @@
+- hosts: site
+  tasks:
+    - name: Restart service netdata
+      ansible.builtin.systemd_service:
+        state: restarted
+        name: netdata
