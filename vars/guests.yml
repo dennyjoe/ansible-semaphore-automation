@@ -8,7 +8,7 @@ guests:
     uuid: c96135fe-bd1b-4572-cdb6-ee2192814d41
   - name: Sisu
     uuid: ab13958d-5348-e344-0558-87924c6add81
-  - name: Wazuh
-    uuid: 8c1900a1-eca1-68c3-9ef3-ab1fc64ad0fd
+  #- name: Wazuh
+  #  uuid: 8c1900a1-eca1-68c3-9ef3-ab1fc64ad0fd
   - name: XO
     uuid: 76997cb5-9645-acde-b594-becc31dd1f37
