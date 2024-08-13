@@ -1,0 +1,5 @@
+- hosts: site
+  become: true
+  roles:
+  - update_dnf
+  - health_check

@@ -1,0 +1,19 @@
+---
+- name: Ensure yum package manager is up-to-date
+  ansible.builtin.yum:
+    update_cache: true
+
+- name: Update the system
+  ansible.builtin.yum:
+    name: '*'
+    state: latest
+
+- name: Check for reboot required
+  register: reboot_required
+  stat:
+    path: /var/run/reboot-required
+
+- name: Reboot the system if required
+  reboot:
+    reboot_timeout: 3600
+  when: reboot_required.stat.exists  
