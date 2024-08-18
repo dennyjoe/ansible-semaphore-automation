@@ -1,4 +1,7 @@
-- hosts: site
+---
+- name: Update RHEL node
+  hosts: site
   become: true
   roles:
-  - update_dnf
+    - update_dnf
+    - health_check

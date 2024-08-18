@@ -1,15 +1,17 @@
-- hosts: site
+---
+- name: Shutdown guests
+  hosts: site
   tasks:
-    - name: load the variables
-      include_vars:
+    - name: Load the variables
+      ansible.builtin.include_vars:
         dir: vars
         extensions: [yml]
-
-    - include_role:
+    - name: Shutdown guests
+      ansible.builtin.include_role:
         name: shutdown_guests
-
-    - include_role:
+    - name: Notify health check
+      ansible.builtin.include_role:
         name: health_check
-
-    - include_role:
+    - name: Shutdown host
+      ansible.builtin.include_role:
         name: shutdown_host

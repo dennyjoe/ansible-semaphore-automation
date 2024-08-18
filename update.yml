@@ -1,5 +1,7 @@
-- hosts: site
+---
+- name: Update Ubuntu Nodes
+  hosts: site
   become: true
   roles:
-  - update
-  - health_check
+    - update
+    - health_check
