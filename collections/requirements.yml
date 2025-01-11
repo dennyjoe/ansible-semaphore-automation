@@ -1,5 +1,6 @@
 ---
 collections:
 - pureport.fabric
-- community.general
+- name: community.general
+  version: "<=6.6.0"  # This version is compatible with Ansible 2.14.5
 - community.docker
