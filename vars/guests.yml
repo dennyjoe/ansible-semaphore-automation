@@ -1,7 +1,7 @@
 ---
 guests:
   - name: chm-http
-    uuid: 1a9cba52-fdd3-c219-5a37-07884c0ff1de
+    uuid: d30e9ed9-7e2f-2df4-b541-074352eabf0a
   - name: chm-mw
     uuid: dccd1fec-7e6b-00ea-06b0-7a8d7673851e
   - name: chm-db
