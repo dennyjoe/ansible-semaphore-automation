@@ -1,0 +1,39 @@
+---
+- name: Shutdown Xen host if no VMs are running
+  hosts: localhost
+  gather_facts: no
+
+  vars_files:
+    - vars/nyx.yml
+
+  vars:
+    xen_host: "nyx.lab.local"
+
+  tasks:
+    - name: Get list of running VMs
+      community.general.xenserver_facts:
+        hostname: "{{ xen_host }}"
+        username: "{{ xen_user }}"
+        password: "{{ xen_password }}"
+        validate_certs: no
+      register: xen_facts
+      ignore_errors: no
+
+    - name: Count running VMs
+      ansible.builtin.set_fact:
+        running_vms: "{{ xen_facts.xenserver_vms | selectattr('power_state', 'eq', 'Running') | list | length }}"
+
+    - name: Shutdown Xen host if no VMs are running
+      community.general.xenserver_host:
+        hostname: "{{ xen_host }}"
+        username: "{{ xen_user }}"
+        password: "{{ xen_password }}"
+        validate_certs: no
+        state: shutdownhost
+      when: running_vms == 0
+      register: shutdown_result
+
+    - name: Log shutdown action
+      ansible.builtin.shell:
+        cmd: "echo '{{ ansible_date_time.iso8601 }} - Xen host shutdown initiated' >> //mnt/storage/logs/xen_operations.log"
+      when: shutdown_result.changed
