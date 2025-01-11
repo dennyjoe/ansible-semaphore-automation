@@ -3,7 +3,7 @@ guests:
   - name: chm-http
     uuid: d30e9ed9-7e2f-2df4-b541-074352eabf0a
   - name: chm-mw
-    uuid: dccd1fec-7e6b-00ea-06b0-7a8d7673851e
+    uuid: 89a3f791-3e63-d9e5-85d5-ab72eba43922
   - name: chm-db
     uuid: 5c89d1a2-6f38-7e0f-c147-06a3b2903274
   - name: Luna
