@@ -30,7 +30,7 @@
           jsonrpc: "2.0"
           method: "VM.get_all_records"
           params:
-            - "{{ session_token.json.result.Value }}"
+            - "{{ session_token.json.result }}"
       register: vm_records
 
     - name: Set shutdown=true for all VMs (excluding Dom0)
@@ -44,10 +44,10 @@
           jsonrpc: "2.0"
           method: "VM.set_other_config"
           params:
-            - "{{ session_token.json.result.Value }}"
+            - "{{ session_token.json.result }}"
             - "{{ item.value.uuid }}"
             - shutdown: "true"
-      loop: "{{ vm_records.json.result.Value | dict2items }}"
+      loop: "{{ vm_records.json.result | dict2items }}"
       when:
         - not item.value.is_control_domain
         - not item.value.is_a_template
