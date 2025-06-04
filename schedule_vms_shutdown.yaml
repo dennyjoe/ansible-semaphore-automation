@@ -1,5 +1,5 @@
-- hosts: localhost
-  connection: local
+- name: Schedule VMs to be Shutdown
+  hosts: site
   vars_files:
     - vars/nyx.yml
 

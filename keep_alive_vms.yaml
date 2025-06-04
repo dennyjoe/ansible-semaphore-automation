@@ -1,5 +1,5 @@
-- hosts: localhost
-  connection: local
+- name: Keep All VMs Running
+  hosts: sites
   vars_files:
     - vars/nyx.yml
 
