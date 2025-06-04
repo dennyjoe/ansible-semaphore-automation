@@ -9,7 +9,10 @@
         url: "https://{{ xcpng_host }}/jsonrpc"
         method: POST
         body_format: json
+        validate_certs: false
         body:
+          id: "1"
+          jsonrpc: "2.0"
           method: "session.login_with_password"
           params:
             - "{{ xcpng_user }}"
@@ -21,7 +24,10 @@
         url: "https://{{ xcpng_host }}/jsonrpc"
         method: POST
         body_format: json
+        validate_certs: false
         body:
+          id: "2"
+          jsonrpc: "2.0"
           method: "VM.get_all_records"
           params:
             - "{{ session_token.json.result.Value }}"
@@ -32,11 +38,16 @@
         url: "https://{{ xcpng_host }}/jsonrpc"
         method: POST
         body_format: json
+        validate_certs: false
         body:
+          id: "3"
+          jsonrpc: "2.0"
           method: "VM.set_other_config"
           params:
             - "{{ session_token.json.result.Value }}"
             - "{{ item.value.uuid }}"
             - shutdown: "true"
       loop: "{{ vm_records.json.result.Value | dict2items }}"
-      when: not item.value.is_control_domain
+      when:
+        - not item.value.is_control_domain
+        - not item.value.is_a_template
