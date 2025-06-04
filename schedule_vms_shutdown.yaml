@@ -1,0 +1,42 @@
+- hosts: localhost
+  connection: local
+  vars_files:
+    - vars/nyx.yml
+
+  tasks:
+    - name: Get session token
+      uri:
+        url: "https://{{ xcpng_host }}/jsonrpc"
+        method: POST
+        body_format: json
+        body:
+          method: "session.login_with_password"
+          params:
+            - "{{ xcpng_user }}"
+            - "{{ xcpng_password }}"
+      register: session_token
+
+    - name: Get all VM records
+      uri:
+        url: "https://{{ xcpng_host }}/jsonrpc"
+        method: POST
+        body_format: json
+        body:
+          method: "VM.get_all_records"
+          params:
+            - "{{ session_token.json.result.Value }}"
+      register: vm_records
+
+    - name: Set shutdown=true for all VMs (excluding Dom0)
+      uri:
+        url: "https://{{ xcpng_host }}/jsonrpc"
+        method: POST
+        body_format: json
+        body:
+          method: "VM.set_other_config"
+          params:
+            - "{{ session_token.json.result.Value }}"
+            - "{{ item.value.uuid }}"
+            - shutdown: "true"
+      loop: "{{ vm_records.json.result.Value | dict2items }}"
+      when: not item.value.is_control_domain
