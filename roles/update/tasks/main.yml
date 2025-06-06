@@ -11,9 +11,9 @@
   apt:
     autoremove: yes
 
-- name: Execute restart script if restart variable is true
-  command: ~/scripts/restart.sh
-  when: restart | bool
+- name: Execute restart script if container_restart_script is set
+  command: "{{ container_restart_script }}"
+  when: container_restart_script | default(false) != false
 
 - name: Check if reboot required
   stat:
