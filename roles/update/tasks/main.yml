@@ -9,7 +9,11 @@
 
 - name: Remove dependencies that are no longer required
   apt:
-    autoremove: yes    
+    autoremove: yes
+
+- name: Execute restart script if restart variable is true
+  command: ~/scripts/restart.sh
+  when: restart | bool
 
 - name: Check if reboot required
   stat:
